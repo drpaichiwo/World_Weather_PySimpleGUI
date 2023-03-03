@@ -2,7 +2,7 @@
 import PySimpleGUI as sg
 import requests
 
-# icon collection:
+# weather icon collection:
 weather_icons = {
     0: "images/Cloudy.png",
     1: "images/Rain.png",
@@ -17,7 +17,7 @@ weather_icons = {
 
 
 def convert_12_to_24(twelve):
-    # Convert 12-hour format "05:34 PM' to 24-hour format "17:34"
+# Convert 12-hour format "05:34 PM' to 24-hour format "17:34"
 
     if twelve[-2:] == "AM" and twelve[:2] == "12":
         return "00" + twelve[2:-3]
@@ -33,7 +33,8 @@ def convert_12_to_24(twelve):
 
 
 def get_weather_data(location):
-
+# connect to weatherstack api to get weather data
+    
     api_key = "Your_Api_Key"  # ENTER YOUR API KEY HERE
 
     url = f"http://api.weatherstack.com/current?access_key={api_key}&query={location.replace(' ', '')}, language=PL"
@@ -62,7 +63,8 @@ def get_weather_data(location):
 
 
 def create_window(theme):
-
+# Window layout
+    
     sg.theme(theme)
     font_1 = "Calibri"
     image_column = sg.Column([
@@ -100,6 +102,7 @@ def create_window(theme):
 
 window = create_window("DarkBlue12")
 
+# Main Loop
 while True:
     event, values = window.read()
     if event == sg.WIN_CLOSED:
