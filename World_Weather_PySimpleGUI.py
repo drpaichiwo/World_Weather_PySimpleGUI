@@ -69,7 +69,6 @@ def create_window(theme):
         [sg.VPush()],
         [sg.Image(weather_icons[8], key="-IMAGE-")]
     ])
-
     info_column_1 = sg.Column([
         [sg.Push(), sg.Text("", key="-CITY-", font="Calibri 18", text_color="yellow"), sg.Push()],
         [sg.Text("Local time:"), sg.Push(), sg.Text("", key="-LOCALTIME-")],
