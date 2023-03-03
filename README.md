@@ -1,4 +1,4 @@
-# World_Weather_PySimpleGUI
+# World Weather PySimpleGUI
 
 Application in Python that gets weather data from weatherstack
 
