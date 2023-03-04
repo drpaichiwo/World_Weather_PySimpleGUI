@@ -15,10 +15,9 @@ weather_icons = {
     8: "images/splash.png"
 }
 
-
+# Convert 12-hour format "05:34 PM' to 24-hour format "17:34"
 def convert_12_to_24(twelve):
-    # Convert 12-hour format "05:34 PM' to 24-hour format "17:34"
-
+  
     if twelve[-2:] == "AM" and twelve[:2] == "12":
         return "00" + twelve[2:-3]
 
@@ -31,17 +30,16 @@ def convert_12_to_24(twelve):
     else:
         return str(int(twelve[:2]) + 12) + twelve[2:-3]
 
-
+# Connect to weatherstack.com and get data
 def get_weather_data(location):
 
-    api_key = "0be17028d97018985c2a91c540086c24"
+    api_key = "YourAPIkey" # ENTER YOUR API KEY HERE
     url = f"http://api.weatherstack.com/current?access_key={api_key}&query={location.replace(' ', '')}, language=PL"
     response = requests.get(url)
     json_dict = response.json()
+    
     # GET DATA FOR:
-
     weather_desc = json_dict["current"]["weather_descriptions"][0]
-
     cty = json_dict["location"]["name"]
     cntr = json_dict["location"]["country"]
     dn = json_dict["current"]["is_day"]
@@ -59,7 +57,7 @@ def get_weather_data(location):
 
     return weather_desc, cty, cntr, dn, lt, temp, fl, hu, ot, ws, wd, pr, cc, pre, vis
 
-
+# Window layout
 def create_window(theme):
 
     sg.theme(theme)
@@ -67,9 +65,7 @@ def create_window(theme):
     image_column = sg.Column([
         [sg.Push(), sg.Text("", key="-DESCRIPTION-", font="Calibri 10"), sg.Push()],
         [sg.Image(weather_icons[8], key="-IMAGE-")]
-
     ])
-
     info_column_1 = sg.Column([
         [sg.Push(), sg.Text("", key="-CITY-", font="Calibri 18", text_color="yellow"), sg.Push()],
         [sg.Text("Local time:"), sg.Push(), sg.Text("", key="-LOCALTIME-")],
@@ -101,6 +97,7 @@ def create_window(theme):
 
 window = create_window("DarkBlue12")
 
+# Main Loop
 while True:
     event, values = window.read()
     if event == sg.WIN_CLOSED:
@@ -134,6 +131,7 @@ while True:
         # cloud
         if weather_description in ('Mostly cloudy', 'Cloudy', 'Overcast'):
             window['-IMAGE-'].update(weather_icons[0])
+            
         # part sun
         if weather_description in ('Partly Sunny', 'Mostly Sunny', 'Partly cloudy'):
             window['-IMAGE-'].update(weather_icons[3])
